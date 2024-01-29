@@ -4,7 +4,7 @@ import {
   AlertTriangle,
   CheckCircle,
   Info,
-  X,
+  X
 } from 'react-feather';
 
 import VisuallyHidden from '../VisuallyHidden';
@@ -15,20 +15,24 @@ const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
   success: CheckCircle,
-  error: AlertOctagon,
+  error: AlertOctagon
 };
 
-function Toast() {
+function Toast({ messageInput, variantRadioInput, setIsHidden }) {
+  const IconComponent = ICONS_BY_VARIANT[variantRadioInput];
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={`${styles.toast} ${styles[variantRadioInput]}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <IconComponent size={24} />
       </div>
-      <p className={styles.content}>
-        16 photos have been uploaded
-      </p>
+      <p className={styles.content}>{messageInput}</p>
       <button className={styles.closeButton}>
-        <X size={24} />
+        <X
+          onClick={() => {
+            setIsHidden(false);
+          }}
+          size={24}
+        />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
