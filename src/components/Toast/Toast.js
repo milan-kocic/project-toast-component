@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children, useState } from 'react';
 import {
   AlertOctagon,
   AlertTriangle,
@@ -18,14 +18,19 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon
 };
 
-function Toast({ messageInput, variantRadioInput, setIsHidden }) {
+function Toast({ setIsHidden, toasts, variantRadioInput }) {
   const IconComponent = ICONS_BY_VARIANT[variantRadioInput];
-  return (
-    <div className={`${styles.toast} ${styles[variantRadioInput]}`}>
+
+  console.log(toasts);
+  return toasts.map((toast) => (
+    <div
+      key={toast.id}
+      className={`${styles.toast} ${styles[toast.variantRadioInput]}`}
+    >
       <div className={styles.iconContainer}>
         <IconComponent size={24} />
       </div>
-      <p className={styles.content}>{messageInput}</p>
+      <p className={styles.content}>{toast.messageInput}</p>
       <button className={styles.closeButton}>
         <X
           onClick={() => {
@@ -36,7 +41,7 @@ function Toast({ messageInput, variantRadioInput, setIsHidden }) {
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
-  );
+  ));
 }
 
 export default Toast;

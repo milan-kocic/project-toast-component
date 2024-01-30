@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '../Button';
-import Toast from '../Toast/Toast';
+
+import ToastShelf from '../ToastShelf/ToastShelf';
 import styles from './ToastPlayground.module.css';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
@@ -10,6 +11,21 @@ function ToastPlayground() {
   const [messageInput, setMessageInput] = useState('');
   const [variantRadioInput, setVariantRadioInput] = useState('notice');
   const [isHidden, setIsHidden] = useState(false);
+  const [toasts, setToasts] = useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsHidden(true);
+    const nextToasts = [
+      ...toasts,
+      {
+        id: crypto.randomUUID(),
+        messageInput,
+        variantRadioInput
+      }
+    ];
+    setToasts(nextToasts);
+  };
+  console.log(toasts);
 
   return (
     <div className={styles.wrapper}>
@@ -18,13 +34,14 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
       {isHidden && (
-        <Toast
+        <ToastShelf
           messageInput={messageInput}
           variantRadioInput={variantRadioInput}
           setIsHidden={setIsHidden}
+          toasts={toasts}
         />
       )}
-      <div className={styles.controlsWrapper}>
+      <form onSubmit={handleSubmit} className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
             htmlFor='message'
@@ -38,7 +55,9 @@ function ToastPlayground() {
               id='message'
               className={styles.messageInput}
               value={messageInput}
-              onChange={(e) => setMessageInput(e.target.value)}
+              onChange={(e) => {
+                setMessageInput(e.target.value);
+              }}
             />
           </div>
         </div>
@@ -67,10 +86,10 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={() => setIsHidden(true)}>Pop Toast!</Button>
+            <Button type='submit'>Pop Toast!</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
