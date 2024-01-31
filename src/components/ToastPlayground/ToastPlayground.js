@@ -1,39 +1,48 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import Button from '../Button';
 
 import ToastShelf from '../ToastShelf/ToastShelf';
 import styles from './ToastPlayground.module.css';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
-  const [messageInput, setMessageInput] = useState('');
-  const [variantRadioInput, setVariantRadioInput] = useState('notice');
-  const [isHidden, setIsHidden] = useState(false);
-  const [toasts, setToasts] = useState([]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsHidden(true);
-    const nextToasts = [
-      ...toasts,
-      {
-        id: crypto.randomUUID(),
-        messageInput,
-        variantRadioInput
-      }
-    ];
-    setToasts(nextToasts);
-    setMessageInput('');
-    setVariantRadioInput('notice');
-  };
-  const handleDismiss = (id) => {
-    const nextToasts = toasts.filter((toast) => {
-      return toast.id !== id;
-    });
-    setToasts(nextToasts);
-  };
-  console.log(toasts);
+  const {
+    handleSubmit,
+    setMessageInput,
+    messageInput,
+    isHidden,
+    setVariantRadioInput,
+    variantRadioInput
+  } = useContext(ToastContext);
+
+  // const [messageInput, setMessageInput] = useState('');
+  // const [variantRadioInput, setVariantRadioInput] = useState('notice');
+  // const [toasts, setToasts] = useState([]);
+  // const [isHidden, setIsHidden] = useState(false);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsHidden(true);
+  //   const nextToasts = [
+  //     ...toasts,
+  //     {
+  //       id: crypto.randomUUID(),
+  //       messageInput,
+  //       variantRadioInput
+  //     }
+  //   ];
+  //   setToasts(nextToasts);
+  //   setMessageInput('');
+  //   setVariantRadioInput('notice');
+  // };
+  // const handleDismiss = (id) => {
+  //   const nextToasts = toasts.filter((toast) => {
+  //     return toast.id !== id;
+  //   });
+  //   setToasts(nextToasts);
+  // };
 
   return (
     <div className={styles.wrapper}>
@@ -41,7 +50,7 @@ function ToastPlayground() {
         <img alt='Cute toast mascot' src='/toast.png' />
         <h1>Toast Playground</h1>
       </header>
-      {isHidden && <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />}
+      {isHidden && <ToastShelf />}
       <form onSubmit={handleSubmit} className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label

@@ -7,7 +7,8 @@ import {
 } from 'react-feather';
 import styles from './Toast.module.css';
 import VisuallyHidden from '../VisuallyHidden';
-
+import { ToastContext } from '../ToastProvider/ToastProvider';
+import { useContext } from 'react';
 const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
@@ -15,7 +16,8 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon
 };
 
-function Toast({ variantRadioInput, handleDismiss, id, children }) {
+function Toast({ variantRadioInput, id, children }) {
+  const { handleDismiss } = useContext(ToastContext);
   const IconComponent = ICONS_BY_VARIANT[variantRadioInput];
   return (
     <div className={`${styles.toast} ${styles[variantRadioInput]}`}>
