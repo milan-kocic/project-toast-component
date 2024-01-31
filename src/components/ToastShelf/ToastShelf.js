@@ -3,12 +3,20 @@ import React from 'react';
 import Toast from '../Toast';
 import styles from './ToastShelf.module.css';
 
-function ToastShelf({ setIsHidden, toasts, variantRadioInput }) {
+function ToastShelf({ handleDismiss, toasts }) {
   return (
     <ol className={styles.wrapper}>
-      <li className={styles.toastWrapper}>
-        <Toast toasts={toasts} variantRadioInput={variantRadioInput} />
-      </li>
+      {toasts.map((toast) => (
+        <li key={toast.id} className={styles.toastWrapper}>
+          <Toast
+            variantRadioInput={toast.variantRadioInput}
+            handleDismiss={handleDismiss}
+            id={toast.id}
+          >
+            {toast.messageInput}
+          </Toast>
+        </li>
+      ))}
     </ol>
   );
 }

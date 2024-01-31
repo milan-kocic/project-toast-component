@@ -24,6 +24,14 @@ function ToastPlayground() {
       }
     ];
     setToasts(nextToasts);
+    setMessageInput('');
+    setVariantRadioInput('notice');
+  };
+  const handleDismiss = (id) => {
+    const nextToasts = toasts.filter((toast) => {
+      return toast.id !== id;
+    });
+    setToasts(nextToasts);
   };
   console.log(toasts);
 
@@ -33,14 +41,7 @@ function ToastPlayground() {
         <img alt='Cute toast mascot' src='/toast.png' />
         <h1>Toast Playground</h1>
       </header>
-      {isHidden && (
-        <ToastShelf
-          messageInput={messageInput}
-          variantRadioInput={variantRadioInput}
-          setIsHidden={setIsHidden}
-          toasts={toasts}
-        />
-      )}
+      {isHidden && <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />}
       <form onSubmit={handleSubmit} className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
@@ -86,7 +87,7 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button type='submit'>Pop Toast!</Button>
+            <Button>Pop Toast!</Button>
           </div>
         </div>
       </form>

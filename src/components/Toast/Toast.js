@@ -7,6 +7,7 @@ import {
 } from 'react-feather';
 import styles from './Toast.module.css';
 import VisuallyHidden from '../VisuallyHidden';
+
 const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
@@ -14,7 +15,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon
 };
 
-function Toast({ messageInput, variantRadioInput, setIsHidden }) {
+function Toast({ variantRadioInput, handleDismiss, id, children }) {
   const IconComponent = ICONS_BY_VARIANT[variantRadioInput];
   return (
     <div className={`${styles.toast} ${styles[variantRadioInput]}`}>
@@ -22,11 +23,11 @@ function Toast({ messageInput, variantRadioInput, setIsHidden }) {
         <IconComponent size={24} />
       </div>
 
-      <p className={styles.content}>{messageInput}</p>
+      <p className={styles.content}>{children}</p>
       <button className={styles.closeButton}>
         <X
           onClick={() => {
-            setIsHidden(false);
+            handleDismiss(id);
           }}
           size={24}
         />
