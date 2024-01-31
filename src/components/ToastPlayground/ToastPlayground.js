@@ -13,7 +13,7 @@ function ToastPlayground() {
     handleSubmit,
     setMessageInput,
     messageInput,
-    isHidden,
+
     setVariantRadioInput,
     variantRadioInput
   } = useContext(ToastContext);
@@ -50,7 +50,7 @@ function ToastPlayground() {
         <img alt='Cute toast mascot' src='/toast.png' />
         <h1>Toast Playground</h1>
       </header>
-      {isHidden && <ToastShelf />}
+      <ToastShelf />
       <form onSubmit={handleSubmit} className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
