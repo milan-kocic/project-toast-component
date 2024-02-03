@@ -8,7 +8,7 @@ import {
 import styles from './Toast.module.css';
 import VisuallyHidden from '../VisuallyHidden';
 import { ToastContext } from '../ToastProvider/ToastProvider';
-import { useContext } from 'react';
+import { forwardRef, useContext } from 'react';
 const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
@@ -16,7 +16,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon
 };
 
-function Toast({ variantRadioInput, id, children }) {
+function Toast({ variantRadioInput, id, children }, ref) {
   const { handleDismiss } = useContext(ToastContext);
   const IconComponent = ICONS_BY_VARIANT[variantRadioInput];
   return (
@@ -38,4 +38,4 @@ function Toast({ variantRadioInput, id, children }) {
     </div>
   );
 }
-export default Toast;
+export default forwardRef(Toast);

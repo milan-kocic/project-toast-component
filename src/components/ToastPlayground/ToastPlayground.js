@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import Button from '../Button';
 
@@ -18,31 +18,7 @@ function ToastPlayground() {
     variantRadioInput
   } = useContext(ToastContext);
 
-  // const [messageInput, setMessageInput] = useState('');
-  // const [variantRadioInput, setVariantRadioInput] = useState('notice');
-  // const [toasts, setToasts] = useState([]);
-  // const [isHidden, setIsHidden] = useState(false);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setIsHidden(true);
-  //   const nextToasts = [
-  //     ...toasts,
-  //     {
-  //       id: crypto.randomUUID(),
-  //       messageInput,
-  //       variantRadioInput
-  //     }
-  //   ];
-  //   setToasts(nextToasts);
-  //   setMessageInput('');
-  //   setVariantRadioInput('notice');
-  // };
-  // const handleDismiss = (id) => {
-  //   const nextToasts = toasts.filter((toast) => {
-  //     return toast.id !== id;
-  //   });
-  //   setToasts(nextToasts);
-  // };
+  
 
   return (
     <div className={styles.wrapper}>
@@ -62,6 +38,7 @@ function ToastPlayground() {
           </label>
           <div className={styles.inputWrapper}>
             <textarea
+              
               id='message'
               className={styles.messageInput}
               value={messageInput}
